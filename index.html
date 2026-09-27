@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A romantic Monthsary surprise website filled with love, memories, letters, and music."
+    />
+    <title>Happy Monthsary, My Love ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="ambient-layer" aria-hidden="true">
+      <div id="floating-hearts" class="floating-hearts"></div>
+      <div id="petal-layer" class="petal-layer"></div>
+      <div id="particle-layer" class="particle-layer"></div>
+    </div>
+
+    <main class="app-shell">
+      <section id="login-screen" class="screen login-screen active" aria-label="Password screen">
+        <div class="login-card glass-card">
+          <p class="mini-tag">To My Favorite Person ❤️</p>
+          <h1>To My Favorite Person ❤️</h1>
+          <p class="login-subtitle">A little surprise awaits you...</p>
+
+          <div class="login-form-wrap">
+            <label for="password-input" class="input-label">Enter our special date</label>
+            <form id="password-form" novalidate>
+              <input
+                id="password-input"
+                name="password"
+                type="text"
+                inputmode="numeric"
+                maxlength="8"
+                placeholder="MM/DD/YY"
+                aria-label="Enter our special date"
+                autocomplete="off"
+              />
+              <button type="submit" class="primary-btn">OPEN MY HEART ❤️</button>
+            </form>
+          </div>
+
+          <p class="password-hint">Hint: It's a very special date for us. ❤️</p>
+          <p id="login-error" class="error-message" role="alert" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section id="home-screen" class="screen home-screen" aria-label="Home screen">
+        <div class="home-background" aria-hidden="true"></div>
+
+        <div class="content-wrap">
+          <header class="top-bar">
+            <div class="brand-mark">♥</div>
+          </header>
+
+          <div class="home-card glass-card">
+            <p class="kicker">Happy Monthsary</p>
+            <h2 id="main-title">Happy Monthsary, My Love ❤️</h2>
+            <p id="subtitle" class="subtitle">Another beautiful month with you.</p>
+            <p id="home-message" class="home-message">
+              Every moment with you becomes a memory I want to keep forever. Thank you for being part
+              of my life, for making ordinary days special, and for giving me countless reasons to
+              smile.
+            </p>
+
+            <div class="heart-line">Forever grateful for you. ❤️</div>
+
+            <div class="option-grid">
+              <button class="option-card" data-section="flowers" type="button" aria-label="Open flowers gallery">
+                <span class="option-icon">🌹</span>
+                <span class="option-title">FLOWERS</span>
+                <span class="option-desc">Every picture holds a memory.</span>
+              </button>
+
+              <button class="option-card" data-section="letters" type="button" aria-label="Open love letter">
+                <span class="option-icon">💌</span>
+                <span class="option-title">LETTERS</span>
+                <span class="option-desc">Words from my heart to yours.</span>
+              </button>
+
+              <button class="option-card" data-section="song" type="button" aria-label="Open our song">
+                <span class="option-icon">🎵</span>
+                <span class="option-title">OUR SONG</span>
+                <span class="option-desc">A song that reminds me of us.</span>
+              </button>
+            </div>
+
+            <button id="surprise-btn" class="surprise-btn" type="button">One More Thing... ❤️</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="flowers-screen" class="screen section-screen" aria-label="Flowers memories gallery">
+        <div id="flower-bloom" class="flower-bloom" aria-hidden="true"></div>
+        <div class="section-shell">
+          <button class="back-btn" type="button" data-back="home">← Back</button>
+          <div class="section-header">
+            <p class="kicker">Our Love Story</p>
+            <h2>Our Beautiful Memories</h2>
+            <p>Every picture holds a little piece of us.</p>
+          </div>
+          <div id="gallery" class="gallery" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="letters-screen" class="screen section-screen" aria-label="Love letter">
+        <div class="section-shell letter-shell">
+          <button class="back-btn" type="button" data-back="home">← Back</button>
+          <div class="letter-card glass-card">
+            <p class="kicker">From the heart</p>
+            <h2>A Letter From My Heart 💌</h2>
+            <div id="letter-text" class="letter-text" aria-live="polite"></div>
+            <button id="replay-letter" class="secondary-btn" type="button">Read Again ❤️</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="song-screen" class="screen section-screen" aria-label="Our song">
+        <div class="section-shell song-shell">
+          <button class="back-btn" type="button" data-back="home">← Back</button>
+          <div class="music-card glass-card">
+            <div class="song-header-row">
+              <div class="vinyl-wrap" aria-hidden="true">
+                <div class="vinyl-disc"></div>
+              </div>
+              <div>
+                <p class="kicker">For us</p>
+                <h2>Our Song 🎵</h2>
+              </div>
+            </div>
+
+            <p class="song-subtitle">Whenever this song plays, I hope it reminds you of us.</p>
+
+            <div class="video-wrapper">
+              <iframe
+                id="youtube-player"
+                src=""
+                title="Our Song video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="song-meta">
+              <div>
+                <p class="song-label">Our Song ❤️</p>
+                <p class="song-caption">Press play and think of us.</p>
+              </div>
+              <button id="play-song-btn" class="secondary-btn" type="button">🎵 Play Our Song</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="surprise-screen" class="screen surprise-screen" aria-label="Final surprise">
+        <div class="surprise-card">
+          <div class="surprise-heart">❤️</div>
+          <p id="surprise-message" class="surprise-message">
+            Thank you for being part of my life. ❤️<br /><br />
+            Here's to more memories,<br />
+            more laughs,<br />
+            more adventures,<br />
+            and many more months together.<br /><br />
+            I love you.
+          </p>
+          <h3 id="surprise-signoff">Happy Monthsary, My Love ❤️</h3>
+          <button class="back-btn surprise-back-btn" type="button" data-back="home">← Back Home</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="lightbox" class="lightbox hidden" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="Close image">×</button>
+      <button class="lightbox-nav prev" type="button" aria-label="Previous image">←</button>
+      <div class="lightbox-inner">
+        <img id="lightbox-image" src="" alt="Memory" />
+        <div class="lightbox-copy">
+          <p id="lightbox-date" class="lightbox-date"></p>
+          <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+      </div>
+      <button class="lightbox-nav next" type="button" aria-label="Next image">→</button>
+    </div>
+
+    <iframe
+      id="background-player"
+      title="Background music"
+      aria-hidden="true"
+      allow="autoplay; encrypted-media"
+    ></iframe>
+
+    <script src="script.js"></script>
+  </body>
+</html>
