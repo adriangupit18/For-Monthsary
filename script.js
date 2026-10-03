@@ -6,6 +6,7 @@ const correctPassword = "10/07/26";
 const girlfriendName = "Maby";
 const yourName = "Bryle";
 const monthsaryNumber = "1";
+const relationshipStartDate = "2026-09-07T00:00:00";
 const backgroundMusicID = "GDND88fqt1o";
 const favoriteSongID = "_BuaVVyyCs8";
 const mainTitle = "Happy Monthsary, Maby ❤️";
@@ -35,7 +36,7 @@ I LOVE YOU! ❤️`;
 const memories = [
   {
     image: "images/memories/e6926c22486c46f78d223b9e89cc8019.webp",
-    date: "The beginning",
+    date: "September 07",
     caption: "The kind of closeness that makes everything feel softer."
   },
   {
@@ -76,7 +77,7 @@ const memories = [
   {
     image: "images/memories/IMG_20260925_212526_111.png",
     date: "September 25",
-    caption: "One month of us, and already so much to remember."
+
   },
   {
     image: "images/memories/IMG_20260925_212539_469.png",
@@ -96,12 +97,12 @@ const memories = [
   {
     image: "images/memories/IMG_20260927_124023_454.jpg",
     date: "September 27",
-    caption: "The kind of day that makes my heart feel full."
+    caption: "First church together."
   },
   {
     image: "images/memories/Screenshot_20260904-212732.png",
     date: "September 04",
-    caption: "A memory worth holding on to, just like you."
+    caption: "Videocall time with my favorite person."
   }
 ];
 
@@ -123,6 +124,13 @@ const surpriseBtn = document.getElementById("surprise-btn");
 const surpriseScreen = document.getElementById("surprise-screen");
 const surpriseMessageElement = document.getElementById("surprise-message");
 const surpriseSignoffElement = document.getElementById("surprise-signoff");
+const counterElements = {
+  months: document.getElementById("counter-months"),
+  days: document.getElementById("counter-days"),
+  hours: document.getElementById("counter-hours"),
+  minutes: document.getElementById("counter-minutes"),
+  seconds: document.getElementById("counter-seconds")
+};
 const youtubePlayer = document.getElementById("youtube-player");
 const backgroundPlayer = document.getElementById("background-player");
 const playSongBtn = document.getElementById("play-song-btn");
@@ -130,16 +138,15 @@ const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightbox-image");
 const lightboxDate = document.getElementById("lightbox-date");
 const lightboxCaption = document.getElementById("lightbox-caption");
-const flowerBloom = document.getElementById("flower-bloom");
 
 let activeScreen = "login";
 let currentLightboxIndex = 0;
 let letterTypingTimer = null;
-let flowerRevealTimer = null;
 let favoritePlayer = null;
 let backgroundMusicWasPlaying = false;
 let youtubeApiReady = false;
 let favoriteSongRequested = false;
+let relationshipCounterTimer = null;
 
 // =============================
 // BASIC WEBSITE SETUP
@@ -152,6 +159,7 @@ function initializeWebsite() {
   surpriseSignoffElement.textContent = `Happy Monthsary, ${girlfriendName} ❤️`;
 
   renderMemoryGallery();
+  startRelationshipCounter();
   initializeBackgroundDecor();
   attachEventListeners();
 
@@ -160,6 +168,41 @@ function initializeWebsite() {
     startBackgroundMusic();
     showScreen("home");
   }
+}
+
+function startRelationshipCounter() {
+  updateRelationshipCounter();
+  relationshipCounterTimer = setInterval(updateRelationshipCounter, 1000);
+}
+
+function updateRelationshipCounter() {
+  const startDate = new Date(relationshipStartDate);
+  const now = new Date();
+
+  if (Number.isNaN(startDate.getTime()) || now < startDate) return;
+
+  let months = (now.getFullYear() - startDate.getFullYear()) * 12;
+  months += now.getMonth() - startDate.getMonth();
+
+  const anniversary = new Date(startDate);
+  anniversary.setMonth(startDate.getMonth() + months);
+
+  if (anniversary > now) {
+    months -= 1;
+    anniversary.setMonth(startDate.getMonth() + months);
+  }
+
+  const remainingMilliseconds = now - anniversary;
+  const days = Math.floor(remainingMilliseconds / 86400000);
+  const hours = Math.floor((remainingMilliseconds % 86400000) / 3600000);
+  const minutes = Math.floor((remainingMilliseconds % 3600000) / 60000);
+  const seconds = Math.floor((remainingMilliseconds % 60000) / 1000);
+
+  counterElements.months.textContent = months;
+  counterElements.days.textContent = days;
+  counterElements.hours.textContent = hours;
+  counterElements.minutes.textContent = minutes;
+  counterElements.seconds.textContent = seconds;
 }
 
 function formatSurpriseText(text) {
@@ -388,49 +431,9 @@ function showScreen(screenName) {
     surpriseScreen.classList.add("active");
   }
 
-  if (screenName === "flowers") {
-    animateFlowerBloom();
-  } else {
-    clearTimeout(flowerRevealTimer);
-    document.getElementById("flowers-screen").classList.remove("revealing");
-    flowerBloom.classList.remove("blooming");
-  }
-
   if (screenName === "letters") {
     startLetterAnimation();
   }
-}
-
-function animateFlowerBloom() {
-  const flowersScreen = document.getElementById("flowers-screen");
-  flowersScreen.classList.add("revealing");
-  clearTimeout(flowerRevealTimer);
-  flowerBloom.innerHTML = `
-    <div class="bouquet" aria-label="A growing bouquet of flowers">
-      <div class="bouquet-glow"></div>
-      <div class="bouquet-flower flower-left"><span class="bouquet-stem"></span><span class="bouquet-leaf leaf-left"></span><span class="bouquet-leaf leaf-right"></span><span class="bouquet-head"></span></div>
-      <div class="bouquet-flower flower-back-left"><span class="bouquet-stem"></span><span class="bouquet-leaf leaf-left"></span><span class="bouquet-leaf leaf-right"></span><span class="bouquet-head"></span></div>
-      <div class="bouquet-flower flower-center"><span class="bouquet-stem"></span><span class="bouquet-leaf leaf-left"></span><span class="bouquet-leaf leaf-right"></span><span class="bouquet-head"></span></div>
-      <div class="bouquet-flower flower-back-right"><span class="bouquet-stem"></span><span class="bouquet-leaf leaf-left"></span><span class="bouquet-leaf leaf-right"></span><span class="bouquet-head"></span></div>
-      <div class="bouquet-flower flower-right"><span class="bouquet-stem"></span><span class="bouquet-leaf leaf-left"></span><span class="bouquet-leaf leaf-right"></span><span class="bouquet-head"></span></div>
-    </div>
-  `;
-  for (let index = 0; index < 18; index += 1) {
-    const sparkle = document.createElement("span");
-    sparkle.className = "rose-sparkle";
-    sparkle.style.setProperty("--x", `${8 + Math.random() * 84}%`);
-    sparkle.style.setProperty("--y", `${8 + Math.random() * 72}%`);
-    sparkle.style.setProperty("--delay", `${0.4 + Math.random() * 1.4}s`);
-    flowerBloom.appendChild(sparkle);
-  }
-  flowerBloom.classList.remove("blooming");
-  void flowerBloom.offsetWidth;
-
-  flowerBloom.classList.add("blooming");
-  flowerRevealTimer = setTimeout(() => {
-    flowersScreen.classList.remove("revealing");
-    flowerBloom.classList.remove("blooming");
-  }, 6200);
 }
 
 // =============================

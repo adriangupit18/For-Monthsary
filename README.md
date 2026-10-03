@@ -38,6 +38,12 @@ const monthsaryNumber = "12";
 const mainTitle = "Happy Monthsary, My Love ❤️";
 ```
 
+To change the live relationship counter, update the starting date:
+
+```js
+const relationshipStartDate = "2026-09-07T00:00:00";
+```
+
 ## 4. Change the love letter
 
 Edit the `letterText` variable in `script.js`:
