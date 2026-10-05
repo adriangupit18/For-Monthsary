@@ -77,7 +77,7 @@ const memories = [
   {
     image: "images/memories/IMG_20260925_212526_111.png",
     date: "September 25",
-
+    caption: "A little moment with you that I want to remember forever."
   },
   {
     image: "images/memories/IMG_20260925_212539_469.png",
@@ -87,12 +87,12 @@ const memories = [
   {
     image: "images/memories/IMG_20260927_102402_595@14055154.jpg",
     date: "September 27",
-    caption: "A fresh little memory, blooming right alongside our story."
+    caption: "First chuch together in Catholic Chuch."
   },
   {
     image: "images/memories/IMG_20260927_124002_081.jpg",
     date: "September 27",
-    caption: "Another beautiful moment I want to keep close."
+    caption: "The look that says I would choose you all over again."
   },
   {
     image: "images/memories/IMG_20260927_124023_454.jpg",
@@ -120,6 +120,7 @@ const homeMessageElement = document.getElementById("home-message");
 const galleryElement = document.getElementById("gallery");
 const letterTextElement = document.getElementById("letter-text");
 const replayLetterButton = document.getElementById("replay-letter");
+const letterVideoButton = document.getElementById("letter-video-btn");
 const surpriseBtn = document.getElementById("surprise-btn");
 const surpriseScreen = document.getElementById("surprise-screen");
 const surpriseMessageElement = document.getElementById("surprise-message");
@@ -131,9 +132,11 @@ const counterElements = {
   minutes: document.getElementById("counter-minutes"),
   seconds: document.getElementById("counter-seconds")
 };
-const youtubePlayer = document.getElementById("youtube-player");
 const backgroundPlayer = document.getElementById("background-player");
+const youtubePlayer = document.getElementById("youtube-player");
 const playSongBtn = document.getElementById("play-song-btn");
+const playVideosButton = document.getElementById("play-videos-btn");
+const localVideoPlayers = [...document.querySelectorAll(".local-video")];
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightbox-image");
 const lightboxDate = document.getElementById("lightbox-date");
@@ -142,8 +145,8 @@ const lightboxCaption = document.getElementById("lightbox-caption");
 let activeScreen = "login";
 let currentLightboxIndex = 0;
 let letterTypingTimer = null;
-let favoritePlayer = null;
 let backgroundMusicWasPlaying = false;
+let favoritePlayer = null;
 let youtubeApiReady = false;
 let favoriteSongRequested = false;
 let relationshipCounterTimer = null;
@@ -228,25 +231,15 @@ function attachEventListeners() {
 
   replayLetterButton.addEventListener("click", startLetterAnimation);
 
+  letterVideoButton.addEventListener("click", showVideoScreen);
+
   surpriseBtn.addEventListener("click", () => {
     showScreen("surprise");
   });
 
-  playSongBtn.addEventListener("click", () => {
-    pauseBackgroundMusic();
-    favoriteSongRequested = true;
-    youtubePlayer.src =
-      `https://www.youtube.com/embed/${favoriteSongID}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`;
+  playVideosButton.addEventListener("click", playLocalVideos);
 
-    if (favoritePlayer) {
-      favoritePlayer.loadVideoById(favoriteSongID);
-    } else if (youtubeApiReady) {
-      initializeFavoritePlayer();
-    }
-
-    playSongBtn.textContent = "🎵 Playing...";
-    playSongBtn.disabled = true;
-  });
+  playSongBtn.addEventListener("click", playFavoriteSong);
 
   document.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
   document.querySelector(".lightbox-nav.prev").addEventListener("click", () => changeLightboxImage(-1));
@@ -273,6 +266,41 @@ function attachEventListeners() {
       closeLightbox();
     }
   });
+}
+
+function showVideoScreen() {
+  pauseBackgroundMusic();
+  showScreen("videos");
+  localVideoPlayers.forEach((video) => {
+    video.pause();
+    video.currentTime = 0;
+  });
+}
+
+function playLocalVideos() {
+  showVideoScreen();
+
+  if (localVideoPlayers[0]) {
+    localVideoPlayers[0].currentTime = 0;
+    localVideoPlayers[0].play().catch(() => {});
+  }
+
+}
+
+function playFavoriteSong() {
+  pauseBackgroundMusic();
+  favoriteSongRequested = true;
+  youtubePlayer.src =
+    `https://www.youtube.com/embed/${favoriteSongID}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`;
+
+  if (favoritePlayer) {
+    favoritePlayer.loadVideoById(favoriteSongID);
+  } else if (youtubeApiReady) {
+    initializeFavoritePlayer();
+  }
+
+  playSongBtn.textContent = "🎵 Playing...";
+  playSongBtn.disabled = true;
 }
 
 function startBackgroundMusic() {
@@ -303,6 +331,15 @@ function pauseBackgroundMusic() {
 function resumeBackgroundMusic() {
   if (!backgroundMusicWasPlaying) return;
   controlBackgroundMusic("playVideo");
+}
+
+function stopLocalVideos() {
+  localVideoPlayers.forEach((video) => {
+    video.pause();
+    video.currentTime = 0;
+  });
+
+  resumeBackgroundMusic();
 }
 
 function stopFavoriteSong() {
@@ -409,6 +446,7 @@ function showScreen(screenName) {
     flowers: document.getElementById("flowers-screen"),
     letters: document.getElementById("letters-screen"),
     song: document.getElementById("song-screen"),
+    videos: document.getElementById("videos-screen"),
     surprise: surpriseScreen
   };
 
@@ -425,6 +463,10 @@ function showScreen(screenName) {
 
   if (previousScreen === "song" && screenName !== "song") {
     stopFavoriteSong();
+  }
+
+  if (previousScreen === "videos" && screenName !== "videos") {
+    stopLocalVideos();
   }
 
   if (screenName === "surprise") {

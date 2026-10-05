@@ -147,7 +147,10 @@
             <p class="kicker">From the heart</p>
             <h2>A Letter From My Heart 💌</h2>
             <div id="letter-text" class="letter-text" aria-live="polite"></div>
-            <button id="replay-letter" class="secondary-btn" type="button">Read Again ❤️</button>
+            <div class="letter-actions">
+              <button id="replay-letter" class="secondary-btn" type="button">Read Again ❤️</button>
+              <button id="letter-video-btn" class="secondary-btn" type="button">🎬 Watch Our Video</button>
+            </div>
           </div>
         </div>
       </section>
@@ -185,6 +188,47 @@
                 <p class="song-caption">Press play and think of us.</p>
               </div>
               <button id="play-song-btn" class="secondary-btn" type="button">🎵 Play Our Song</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="videos-screen" class="screen section-screen" aria-label="Our videos">
+        <div class="section-shell song-shell">
+          <button class="back-btn" type="button" data-back="home">← Back</button>
+          <div class="music-card glass-card">
+            <div class="song-header-row">
+              <div>
+                <p class="kicker">For us</p>
+                <h2>Our Videos 🎬</h2>
+              </div>
+            </div>
+
+            <p class="song-subtitle">Our favorite moments, saved for us.</p>
+
+            <div class="video-gallery">
+              <div class="video-wrapper">
+                <video class="local-video" controls preload="metadata" playsinline>
+                  <source src="videos/MABY.mp4" type="video/mp4" />
+                  Your browser does not support local video playback.
+                </video>
+                <p class="video-label">Maby ❤️</p>
+              </div>
+              <div class="video-wrapper">
+                <video class="local-video" controls preload="metadata" playsinline>
+                  <source src="videos/VID_20260913_221227.mp4" type="video/mp4" />
+                  Your browser does not support local video playback.
+                </video>
+                <p class="video-label">Another memory of us ❤️</p>
+              </div>
+            </div>
+
+            <div class="song-meta">
+              <div>
+                <p class="song-label">Our Videos ❤️</p>
+                <p class="song-caption">Choose play when you are ready.</p>
+              </div>
+              <button id="play-videos-btn" class="secondary-btn" type="button">▶ Play Videos</button>
             </div>
           </div>
         </div>

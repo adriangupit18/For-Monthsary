@@ -1088,6 +1088,17 @@ input:focus-visible,
   animation: blink 0.8s infinite;
 }
 
+.letter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.letter-actions .secondary-btn {
+  flex: 1 1 220px;
+}
+
 .secondary-btn {
   margin-top: 1rem;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 233, 238, 0.9));
@@ -1158,10 +1169,31 @@ input:focus-visible,
   aspect-ratio: 16 / 9;
 }
 
+.video-gallery {
+  display: grid;
+  gap: 1rem;
+}
+
+.local-video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: cover;
+}
+
 #youtube-player {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+.video-label {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: var(--burgundy);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.72);
 }
 
 #background-player {
